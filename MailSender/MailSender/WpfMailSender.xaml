@@ -36,8 +36,45 @@
         </StatusBar>
         
         <TabControl>
-            <TabItem Header="Write a letter">
-                <DockPanel Margin="10" LastChildFill="False" Background="Aqua">
+            <TabItem Header="Lists">
+                <DockPanel>
+                    <ToolBarTray DockPanel.Dock="Top">
+                        <ToolBar Header="Go to Planner">
+                            <Button Content="Go to"/>
+                        </ToolBar>
+                        <ToolBar Header="Servers">
+                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
+                                      Margin="26,0,0,0">
+                                <ComboBoxItem>smtp.yandex.ru:25</ComboBoxItem>
+                                <ComboBoxItem>smtp.gmail.com</ComboBoxItem>
+                                <ComboBoxItem>smtp.mail.ru</ComboBoxItem>
+                            </ComboBox>
+                            <Button Content="Add"/>
+                            <Button Content="Edit"/>
+                            <Button Content="Del"/>
+                        </ToolBar>
+                        <ToolBar Header="Senders" Band="1">
+                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0">
+                                <ComboBoxItem>Ivanov</ComboBoxItem>
+                                <ComboBoxItem>Petrov</ComboBoxItem>
+                                <ComboBoxItem>Sidorov</ComboBoxItem>
+                            </ComboBox>
+                            <Button Content="Add"/>
+                            <Button Content="Edit"/>
+                            <Button Content="Del"/>
+                        </ToolBar>
+                        <ToolBar Header="Receivers" Band="1"/>
+                    </ToolBarTray>
+                    <GroupBox Header="List of Receivers">
+                        <DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" MinWidth="30"/>
+                                <DataGridTextColumn Header="Name" Width="*"/>
+                                <DataGridTextColumn Header="Adress" MinWidth="160"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                <!--
                     <TextBox x:Name="tbMessage" Text="Message" Width="200" Height="326" Margin="10"/>
                         <Button Width="150" Height="50" Name="btnSendEmail" Content="Send" 
                                 Click="btnSendEmail_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Left" 
@@ -70,12 +107,132 @@
                     <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
                         <PasswordBox x:Name="passwordBox" Height="30" Width="400"/>
                         <Label Content="Password" FontSize="16"/>
-                    </StackPanel>
+                    </StackPanel>-->
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Planner"/>
-            <TabItem Header="Letters"/>
-            <TabItem Header="Statistic"/>
+            
+            <TabItem Header="Planner">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Management">
+                        <StackPanel>
+                            <TextBlock Text="Calendar" TextAlignment="Center"/>
+                            <Calendar/>
+                            <StackPanel Margin="5,7">
+                                <StackPanel.Resources>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Margin" Value="0,3"/>
+                                        <Setter Property="Background" Value="Aqua"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Button Content="Send" Margin="0,3"/>
+                                <Button Content="Plan" Margin="0,3"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Tasks">
+                        <ListBox>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBoxItem>
+                                <GroupBox Header="Task">
+                                    <StackPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Date"/>
+                                            <TextBlock Text="21.09.2020 15:00"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Sender"/>
+                                            <TextBlock Text="Ivanov"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Receiver"/>
+                                            <TextBlock Text="Petrov"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Message"/>
+                                            <TextBlock Text="Title of message"/>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                    <GridSplitter Grid.Column="0" HorizontalAlignment="Right"
+                                  Width="3" Background="Transparent" ShowsPreview="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Letters">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="200" MaxWidth="400"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column ="0" Header="List of Letters">
+                        <ListBox>
+                            <ListBoxItem>Letter 1</ListBoxItem>
+                            <ListBoxItem>Letter 2</ListBoxItem>
+                            <ListBoxItem>Letter 3</ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Editor">
+                        <DockPanel>
+                            <GroupBox Header="Title" DockPanel.Dock="Top">
+                                <TextBox/>
+                            </GroupBox>
+                            <GroupBox Header="Letter`s Body">
+                                <TextBox AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </GroupBox>
+                        </DockPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Statistic">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Grid.Column" Value="0">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                </Trigger>
+                                <Trigger Property="Grid.Column" Value="1">
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Number of sended letters"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="5"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Number of senders in a base"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="5"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Number of receivers in a base"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="5"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Number of actions"/>
+                    <TextBlock Grid.Column="1" Grid.Row="3" Text="10"/>
+
+                </Grid>
+            </TabItem>
         </TabControl>
     </DockPanel>
 

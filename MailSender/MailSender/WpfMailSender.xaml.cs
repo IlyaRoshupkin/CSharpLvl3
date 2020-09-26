@@ -29,17 +29,17 @@ namespace MailSender
 
         private void btnSendEmail_Click(object sender, RoutedEventArgs e)
         {
-            SmtpData.from = tbFrom.Text;
-            SmtpData.to = tbTo.Text;
-            SmtpData.subject = tbSubject.Text;
-            SmtpData.smtpServer = tbSmptServer.Text;
-            SmtpData.smtpPort = Convert.ToInt32(tbSmptPort.Text);
-            SmtpData.userName = tbUserName.Text;
-            SmtpData.password = passwordBox.Password;
-            SmtpData.message = tbMessage.Text;
-            EmailSendServiceClass essc = new EmailSendServiceClass();
-            SendEndWindow sew = new SendEndWindow();
-            sew.ShowDialog();
+            //SmtpData.from = tbFrom.Text;
+            //SmtpData.to = tbTo.Text;
+            //SmtpData.subject = tbSubject.Text;
+            //SmtpData.smtpServer = tbSmptServer.Text;
+            //SmtpData.smtpPort = Convert.ToInt32(tbSmptPort.Text);
+            //SmtpData.userName = tbUserName.Text;
+            //SmtpData.password = passwordBox.Password;
+            //SmtpData.message = tbMessage.Text;
+            //EmailSendServiceClass essc = new EmailSendServiceClass();
+            //SendEndWindow sew = new SendEndWindow();
+            //sew.ShowDialog();
         }
 
         private void miExit_Click(object sender, RoutedEventArgs e)
