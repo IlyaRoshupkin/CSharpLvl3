@@ -8,11 +8,33 @@
         Title="WpfMailSender" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     
     <DockPanel>
+        
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File" FontSize="18">
-                <MenuItem x:Name="miExit" Header="Exit" FontSize="18" Click="miExit_Click"/>
+            <MenuItem Header="File" >
+                <MenuItem Header="Create"/>
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Close"/>
+                <MenuItem Header="Save"/>
+                <Separator/>
+                <MenuItem x:Name="miExit" Header="Exit" Click="miExit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Service"  >
+                <MenuItem Header="Settings"  />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About the Programm"/>
             </MenuItem>
         </Menu>
+        
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem DockPanel.Dock ="Right">
+                <ResizeGrip/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Is Ready!" FontSize="18" Foreground="Red"/>
+            </StatusBarItem>
+        </StatusBar>
+        
         <TabControl>
             <TabItem Header="Write a letter">
                 <DockPanel Margin="10" LastChildFill="False" Background="Aqua">
