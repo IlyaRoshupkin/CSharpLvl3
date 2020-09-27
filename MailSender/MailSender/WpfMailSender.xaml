@@ -190,19 +190,17 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column ="0" Header="List of Letters">
-                        <ListBox>
-                            <ListBoxItem>Letter 1</ListBoxItem>
-                            <ListBoxItem>Letter 2</ListBoxItem>
-                            <ListBoxItem>Letter 3</ListBoxItem>
-                        </ListBox>
+                        <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messages}"
+                                 DisplayMemberPath="Subject"/>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Editor">
                         <DockPanel>
                             <GroupBox Header="Title" DockPanel.Dock="Top">
-                                <TextBox/>
+                                <TextBox Text="{Binding SelectedItem.Subject, ElementName=MessagesList}"/>
                             </GroupBox>
                             <GroupBox Header="Letter`s Body">
-                                <TextBox AcceptsReturn="True" TextWrapping="Wrap"/>
+                                <TextBox AcceptsReturn="True" TextWrapping="Wrap"
+                                         Text="{Binding SelectedItem.Body, ElementName=MessagesList}"/>
                             </GroupBox>
                         </DockPanel>
                     </GroupBox>
