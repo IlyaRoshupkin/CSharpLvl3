@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
-        Title="WpfMailSender" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="WpfMailSender" Height="450" Width="800" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/Media/messageSender.ico">
     
     <DockPanel>
         
@@ -39,31 +41,57 @@
             <TabItem Header="Lists">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
-                        <ToolBar Header="Go to Planner">
-                            <Button Content="Go to"/>
-                        </ToolBar>
-                        <ToolBar Header="Servers">
+
+                        <ToolBar Header="Servers" Band="0" BandIndex="0">
                             <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
                                       Margin="26,0,0,0">
                                 <ComboBoxItem>smtp.yandex.ru:25</ComboBoxItem>
                                 <ComboBoxItem>smtp.gmail.com</ComboBoxItem>
                                 <ComboBoxItem>smtp.mail.ru</ComboBoxItem>
                             </ComboBox>
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
+                                    Foreground="Gray"/>
+                            <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
+                                    Foreground="Blue"/>
+                            <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
+                                    Foreground="Red"/>
                         </ToolBar>
-                        <ToolBar Header="Senders" Band="1">
+
+                        <ToolBar Header="Go to Planner" Band="0" BandIndex="1">
+                            <Button fa:Awesome.Content="Regular_Clock" Foreground="DarkGreen" ToolTip="Go to"/>
+                        </ToolBar>
+
+                        <ToolBar Header="Senders" Band="1" BandIndex="0">
                             <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0">
                                 <ComboBoxItem>Ivanov</ComboBoxItem>
                                 <ComboBoxItem>Petrov</ComboBoxItem>
                                 <ComboBoxItem>Sidorov</ComboBoxItem>
                             </ComboBox>
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <!--<Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
+                                    Foreground="Gray"/>
+                            <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
+                                    Foreground="Blue"/>
+                            <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
+                                    Foreground="Red"/>-->
+                            <Button>
+                                <Image Source="Media/add.png" ToolTip="Add" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="/Media/edit.png" ToolTip="Edit" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="/Media/remove.png" ToolTip="Remove" Height="12"/>
+                            </Button>
                         </ToolBar>
-                        <ToolBar Header="Receivers" Band="1"/>
+
+                        <ToolBar Header="Receivers" Band="1" BandIndex="1">
+                            <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
+                                    Foreground="Gray"/>
+                            <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
+                                    Foreground="Blue"/>
+                            <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
+                                    Foreground="Red"/>
+                        </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="List of Receivers">
                         <DataGrid>
