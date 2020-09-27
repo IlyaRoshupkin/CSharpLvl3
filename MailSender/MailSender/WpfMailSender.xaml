@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:data="clr-namespace:MailSender.Data"
+        xmlns:m="clr-namespace:MailSender.Models"
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
         Title="WpfMailSender" Height="450" Width="800" ResizeMode="NoResize" 
@@ -43,13 +45,19 @@
                     <ToolBarTray DockPanel.Dock="Top">
 
                         <ToolBar Header="Servers" Band="0" BandIndex="0">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      Margin="26,0,0,0">
-                                <ComboBoxItem>smtp.yandex.ru:25</ComboBoxItem>
-                                <ComboBoxItem>smtp.gmail.com</ComboBoxItem>
-                                <ComboBoxItem>smtp.mail.ru</ComboBoxItem>
+                            <ComboBox MinWidth="120" MaxWidth="200" 
+                                SelectedIndex="0" Margin="26,0,0,0" 
+                                      ItemsSource="{x:Static data:TestData.Servers}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="m:Server">
+                                        <TextBlock Text="{Binding Address}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
+                            <!--ItemsSource="{x:Static data:TestData.Servers}"
+                                      DisplayMemberPath="Address"
+                                      SelectedValuePath="Address"-->
+                        <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
                                     Foreground="Gray"/>
                             <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
                                     Foreground="Blue"/>
@@ -62,10 +70,18 @@
                         </ToolBar>
 
                         <ToolBar Header="Senders" Band="1" BandIndex="0">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0">
-                                <ComboBoxItem>Ivanov</ComboBoxItem>
-                                <ComboBoxItem>Petrov</ComboBoxItem>
-                                <ComboBoxItem>Sidorov</ComboBoxItem>
+                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
+                                      ItemsSource="{x:Static data:TestData.Senders}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="m:Sender">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" 
+                                                       ToolTip="{Binding Address}"/>
+                                            <!--<TextBlock Text=":"/>
+                                            <TextBlock Text="{Binding Address}" Opacity="0.4"/>-->
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
                             <!--<Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
                                     Foreground="Gray"/>
@@ -84,7 +100,7 @@
                             </Button>
                         </ToolBar>
 
-                        <ToolBar Header="Receivers" Band="1" BandIndex="1">
+                        <ToolBar Header="Recipients" Band="1" BandIndex="1">
                             <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
                                     Foreground="Gray"/>
                             <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
@@ -93,49 +109,20 @@
                                     Foreground="Red"/>
                         </ToolBar>
                     </ToolBarTray>
-                    <GroupBox Header="List of Receivers">
-                        <DataGrid>
+                    <GroupBox Header="List of Recipients">
+                        <DataGrid ItemsSource="{x:Static data:TestData.Recipients}"
+                                  AutoGenerateColumns="False" GridLinesVisibility="Vertical"
+                                  AlternatingRowBackground="WhiteSmoke"
+                                  VerticalGridLinesBrush="OrangeRed">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" MinWidth="30"/>
-                                <DataGridTextColumn Header="Name" Width="*"/>
-                                <DataGridTextColumn Header="Adress" MinWidth="160"/>
+                                <DataGridTextColumn Header="Name" Width="*" 
+                                                    Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Adress" MinWidth="160"
+                                                    Binding="{Binding Address}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
-                <!--
-                    <TextBox x:Name="tbMessage" Text="Message" Width="200" Height="326" Margin="10"/>
-                        <Button Width="150" Height="50" Name="btnSendEmail" Content="Send" 
-                                Click="btnSendEmail_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Left" 
-                                VerticalAlignment="Center" Margin="100,0,0,10" />
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <TextBox x:Name="tbFrom" Height="30" Width="400" Text="roshupkin.ilya2012@yandex.ru"/>
-                        <Label Content="From" FontSize="16"/>
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <TextBox x:Name="tbTo" Height="30" Width="400" Text="roshupkin.ilya@gmail.com"/>
-                        <Label Content="To" FontSize="16"/>
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <TextBox x:Name="tbSubject" Height="30" Width="400" Text="A new letter"/>
-                        <Label Content="Subject" FontSize="16"/>
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <TextBox x:Name="tbSmptServer" Height="30" Width="400" Text="smtp.yandex.ru"/>
-                        <Label Content="SMPTServer" FontSize="16"/>
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <TextBox x:Name="tbSmptPort" Height="30" Width="400" Text="25"/>
-                        <Label Content="SMPTPort" FontSize="16"/>
-                    </StackPanel>
-
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <TextBox x:Name="tbUserName" Height="30" Width="400" Text="roshupkin.ilya2012@yandex.ru"/>
-                        <Label Content="UserName" FontSize="16"/>
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
-                        <PasswordBox x:Name="passwordBox" Height="30" Width="400"/>
-                        <Label Content="Password" FontSize="16"/>
-                    </StackPanel>-->
                 </DockPanel>
             </TabItem>
             
