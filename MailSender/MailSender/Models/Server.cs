@@ -28,6 +28,7 @@ namespace MailSender.Models
                     throw new ArgumentOutOfRangeException(
                         nameof(value),value,"Port number has to be in the range " +
                         "from 0 to 65535.");
+                _Port = value;
             }
         }
         public string Login 

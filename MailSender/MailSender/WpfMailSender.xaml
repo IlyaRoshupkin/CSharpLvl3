@@ -45,7 +45,7 @@
                     <ToolBarTray DockPanel.Dock="Top">
 
                         <ToolBar Header="Servers" Band="0" BandIndex="0">
-                            <ComboBox MinWidth="120" MaxWidth="200" 
+                            <ComboBox Name="ServersList" MinWidth="120" MaxWidth="200" 
                                 SelectedIndex="0" Margin="26,0,0,0" 
                                       ItemsSource="{x:Static data:TestData.Servers}">
                                 <ComboBox.ItemTemplate>
@@ -70,7 +70,7 @@
                         </ToolBar>
 
                         <ToolBar Header="Senders" Band="1" BandIndex="0">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
+                            <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200" SelectedIndex="0"
                                       ItemsSource="{x:Static data:TestData.Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="m:Sender">
@@ -110,7 +110,7 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="List of Recipients">
-                        <DataGrid ItemsSource="{x:Static data:TestData.Recipients}"
+                        <DataGrid Name="RecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
                                   AutoGenerateColumns="False" GridLinesVisibility="Vertical"
                                   AlternatingRowBackground="WhiteSmoke"
                                   VerticalGridLinesBrush="OrangeRed">
@@ -143,7 +143,7 @@
                                         <Setter Property="Background" Value="Aqua"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="Send" Margin="0,3"/>
+                                <Button Name="btnSend" Content="Send" Margin="0,3" Click="btnSend_Click"/>
                                 <Button Content="Plan" Margin="0,3"/>
                             </StackPanel>
                         </StackPanel>
