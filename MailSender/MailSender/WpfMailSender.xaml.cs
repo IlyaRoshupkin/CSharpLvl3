@@ -71,10 +71,12 @@ namespace MailSender
                 send_service.SendMessage(sender.Address, recipient.Address,
                     message.Subject, message.Body);
             }
-            catch (SmtpException error)
+            catch (Exception error)
             {
-                MessageBox.Show("Error during the mail`s sending " + error.Message, "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Error during the mail`s sending " + error.Message, "Error",
+                //    MessageBoxButton.OK, MessageBoxImage.Error);
+                SendErrorWindow sendErrorWindow = new SendErrorWindow(error);
+                sendErrorWindow.ShowDialog();
             }
         }
     }
