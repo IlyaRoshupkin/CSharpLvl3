@@ -1,251 +1,81 @@
 ﻿<Window x:Class="MailSender.WpfMailSender"
-        
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:m="clr-namespace:MailSender.Models"
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
-        Title="WpfMailSender" Height="750" Width="1200" ResizeMode="NoResize" 
-        WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/Media/messageSender.ico">
-
+        Title="WpfMailSender" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File" >
-                    <MenuItem Header="Create"/>
-                    <MenuItem Header="Open"/>
-                    <MenuItem Header="Close"/>
-                    <MenuItem Header="Save"/>
-                    <Separator/>
-                    <MenuItem x:Name="miExit" Header="Exit" Click="miExit_Click"/>
-                </MenuItem>
-                <MenuItem Header="Service"  >
-                    <MenuItem Header="Settings"  />
-                </MenuItem>
-                <MenuItem Header="Help">
-                    <MenuItem Header="About the Programm"/>
-                </MenuItem>
-            </Menu>
+            <MenuItem Header="File" FontSize="18">
+                <MenuItem x:Name="miExit" Header="Exit" FontSize="18" Click="miExit_Click"/>
+            </MenuItem>
+        </Menu>
+        <TabControl >
+            <TabItem Header="Formation of Mailing Group">
+                <ToolBarTray Height="65" VerticalAlignment="Top" >
+                    <ToolBar x:Name="toolBarSender"  Height="30">
+                        <Label x:Name="lSender" Padding="12,0,0,5" Content="Choose a Sender" 
+                               FontSize="14" Width="130" Height="25"/>
+                        <ComboBox Name="cbSenderSelect" Width="270" Height="25" 
+                                  ToolTip="Choose an email of the sender" SelectedIndex="0">
+                            <ComboBoxItem Content="roshupkin.ilya2012@yandex.ru"/>
+                            <ComboBoxItem Content="roshupkin.ilya@gmail.com"/>
+                        </ComboBox>
+                        <Button x:Name = "btnAddSender"  Width = "30" Height="30" ToolTip = "Add">
+                            <Image Source = "Images/add.png"  />
+                        </Button>
+                        <Button x:Name = "btnEditSender" Width = "30" Height="30" ToolTip = "Edit">
+                            <Image Source = "Images/edit.png" />
+                        </Button>
+                        <Button x:Name = "btnDeleteSender" Width = "30" Height="30" ToolTip = "Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Source = "Images/delete.png" Width="30" Height="30" />
+                        </Button>
 
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem DockPanel.Dock ="Right">
-                <ResizeGrip/>
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock Text="Is Ready!" FontSize="18" Foreground="Red"/>
-            </StatusBarItem>
-        </StatusBar>
-        
-        <TabControl>
-            <TabItem Header="Lists">
-                <DockPanel>
-                    <ToolBarTray DockPanel.Dock="Top">
 
-                        <ToolBar Header="Servers" Band="0" BandIndex="0">
-                            <ComboBox Name="ServersList" MinWidth="120" MaxWidth="200" 
-                                SelectedIndex="0" Margin="26,0,0,0" 
-                                      ItemsSource="{x:Static data:TestData.Servers}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="m:Server">
-                                        <TextBlock Text="{Binding Address}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <!--ItemsSource="{x:Static data:TestData.Servers}"
-                                      DisplayMemberPath="Address"
-                                      SelectedValuePath="Address"-->
-                        <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
-                                    Foreground="Gray"/>
-                            <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
-                                    Foreground="Blue"/>
-                            <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
-                                    Foreground="Red"/>
-                        </ToolBar>
+                    </ToolBar>
+                </ToolBarTray>
+                <!--<DockPanel Margin="10" LastChildFill="False" Background="Aqua">
+                    <TextBox x:Name="tbMessage" Text="Message" Width="200" Height="326" Margin="10"/>
+                        <Button Width="150" Height="50" Name="btnSendEmail" Content="Send" 
+                                Click="btnSendEmail_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" Margin="100,0,0,10" />
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <TextBox x:Name="tbFrom" Height="30" Width="400" Text="roshupkin.ilya2012@yandex.ru"/>
+                        <Label Content="From" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <TextBox x:Name="tbTo" Height="30" Width="400" Text="roshupkin.ilya@gmail.com"/>
+                        <Label Content="To" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <TextBox x:Name="tbSubject" Height="30" Width="400" Text="A new letter"/>
+                        <Label Content="Subject" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <TextBox x:Name="tbSmptServer" Height="30" Width="400" Text="smtp.yandex.ru"/>
+                        <Label Content="SMPTServer" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <TextBox x:Name="tbSmptPort" Height="30" Width="400" Text="25"/>
+                        <Label Content="SMPTPort" FontSize="16"/>
+                    </StackPanel>
 
-                        <ToolBar Header="Go to Planner" Band="0" BandIndex="1">
-                            <Button fa:Awesome.Content="Regular_Clock" Foreground="DarkGreen" ToolTip="Go to"/>
-                        </ToolBar>
-
-                        <ToolBar Header="Senders" Band="1" BandIndex="0">
-                            <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Senders}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="m:Sender">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" 
-                                                       ToolTip="{Binding Address}"/>
-                                            <!--<TextBlock Text=":"/>
-                                            <TextBlock Text="{Binding Address}" Opacity="0.4"/>-->
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
-                                    Foreground="Gray"/>
-                            <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
-                                    Foreground="Blue"/>
-                            <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
-                                    Foreground="Red"/>
-                            <!--<Button>
-                                <Image Source="Media/add.png" ToolTip="Add" Height="12"/>
-                            </Button>
-                            <Button>
-                                <Image Source="/Media/edit.png" ToolTip="Edit" Height="12"/>
-                            </Button>
-                            <Button>
-                                <Image Source="/Media/remove.png" ToolTip="Remove" Height="12"/>
-                            </Button>-->
-                        </ToolBar>
-
-                        <ToolBar Header="Recipients" Band="1" BandIndex="1">
-                            <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
-                                    Foreground="Gray"/>
-                            <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
-                                    Foreground="Blue"/>
-                            <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
-                                    Foreground="Red"/>
-                        </ToolBar>
-                    </ToolBarTray>
-                    <GroupBox Header="List of Recipients">
-                        <DataGrid Name="RecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
-                                  AutoGenerateColumns="False" GridLinesVisibility="Vertical"
-                                  AlternatingRowBackground="DarkBlue"
-                                  VerticalGridLinesBrush="OrangeRed">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" MinWidth="30"/>
-                                <DataGridTextColumn Header="Name" Width="*" 
-                                                    Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Adress" MinWidth="160"
-                                                    Binding="{Binding Address}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </GroupBox>
-                </DockPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <TextBox x:Name="tbUserName" Height="30" Width="400" Text="roshupkin.ilya2012@yandex.ru"/>
+                        <Label Content="UserName" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <PasswordBox x:Name="passwordBox" Height="30" Width="400"/>
+                        <Label Content="Password" FontSize="16"/>
+                    </StackPanel>
+                </DockPanel>-->
             </TabItem>
-            
-            <TabItem Header="Planner">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Header="Management">
-                        <StackPanel>
-                            <TextBlock Text="Calendar" TextAlignment="Center"/>
-                            <Calendar/>
-                            <StackPanel Margin="5,7">
-                                <StackPanel.Resources>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Margin" Value="0,3"/>
-                                        <Setter Property="Background" Value="Aqua"/>
-                                    </Style>
-                                </StackPanel.Resources>
-                                <Button Name="btnSend"  Content="Send" Margin="0,3" Click="btnSend_Click"/>
-                                <Button Content="Plan" Margin="0,3"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Tasks">
-                        <ListBox Background="DarkBlue">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                            <ListBoxItem Background="Black">
-                                <GroupBox Header="Task">
-                                    <StackPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="Date: "/>
-                                            <TextBlock Text="21.09.2020 15:00"/>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="Sender: "/>
-                                            <TextBlock Text="Ivanov"/>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="Receiver: "/>
-                                            <TextBlock Text="Petrov"/>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="Message: "/>
-                                            <TextBlock Text="Title of message"/>
-                                        </DockPanel>
-                                    </StackPanel>
-                                </GroupBox>
-                            </ListBoxItem>
-                        </ListBox>
-                    </GroupBox>
-                    <GridSplitter Grid.Column="0" HorizontalAlignment="Right"
-                                  Width="3" Background="Transparent" ShowsPreview="True"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Letters">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="200" MaxWidth="400"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column ="0" Header="List of Letters">
-                        <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messages}"
-                                 DisplayMemberPath="Subject"/>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Editor">
-                        <DockPanel Background="Black">
-                            <GroupBox Header="Title" DockPanel.Dock="Top">
-                                <TextBox Text="{Binding SelectedItem.Subject, ElementName=MessagesList}"/>
-                            </GroupBox>
-                            <GroupBox Header="Letter`s Body">
-                                <TextBox AcceptsReturn="True" TextWrapping="Wrap"
-                                         Text="{Binding SelectedItem.Body, ElementName=MessagesList}"/>
-                            </GroupBox>
-                        </DockPanel>
-                    </GroupBox>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Statistic">
-                <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <Trigger Property="Grid.Column" Value="0">
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="HorizontalAlignment" Value="Right"/>
-                                </Trigger>
-                                <Trigger Property="Grid.Column" Value="1">
-                                    <Setter Property="Margin" Value="5,0,0,0"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Number of sended letters"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="5"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Number of senders in a base"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="5"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Number of receivers in a base"/>
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="5"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Number of actions"/>
-                    <TextBlock Grid.Column="1" Grid.Row="3" Text="10"/>
-
-                </Grid>
-            </TabItem>
+            <TabItem Header="Planner"/>
+            <TabItem Header="Editor of Letters"/>
+            <TabItem Header="Statistic"/>
         </TabControl>
     </DockPanel>
 
