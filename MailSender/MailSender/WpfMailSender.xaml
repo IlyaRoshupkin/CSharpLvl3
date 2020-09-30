@@ -134,7 +134,7 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Management">
                         <StackPanel>
-                            <TextBlock Text="Calendar" TextAlignment="Center"/>
+                            <TextBlock Text="Calendar" TextAlignment="Center" FontSize="16" FontWeight="Bold"/>
                             <Calendar/>
                             <StackPanel Margin="5,7">
                                 <StackPanel.Resources>
@@ -143,8 +143,18 @@
                                         <Setter Property="Background" Value="Aqua"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Name="btnSend"  Content="Send" Margin="0,3" Click="btnSend_Click"/>
-                                <Button Content="Plan" Margin="0,3"/>
+                                <Button Name="btnSend" Height="30" Margin="0,3" Click="btnSend_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Height="20" Width="20" Fill="Red"/>
+                                        <TextBlock Text=" Send" FontSize="14" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Height="30" Margin="0,3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Height="20" Width="20" Fill="DarkGreen"/>
+                                        <TextBlock Text=" Plan" FontSize="14" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -183,7 +193,7 @@
                                   Width="3" Background="Transparent" ShowsPreview="True"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Letters">
+            <TabItem Name="tiLetters" Header="Letters">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="200" MaxWidth="400"/>
@@ -191,15 +201,23 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column ="0" Header="List of Letters">
                         <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messages}"
-                                 DisplayMemberPath="Subject"/>
+                                 DisplayMemberPath="Subject" Foreground="AliceBlue">
+                            <ListBox.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF8200FF"/>
+                                    <GradientStop Color="Black" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ListBox.Background>
+
+                        </ListBox>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Editor">
                         <DockPanel Background="Black">
                             <GroupBox Header="Title" DockPanel.Dock="Top">
-                                <TextBox Text="{Binding SelectedItem.Subject, ElementName=MessagesList}"/>
+                                <TextBox  Text="{Binding SelectedItem.Subject, ElementName=MessagesList}"/>
                             </GroupBox>
                             <GroupBox Header="Letter`s Body">
-                                <TextBox AcceptsReturn="True" TextWrapping="Wrap"
+                                <TextBox Name="tbLetterBody" Foreground="AntiqueWhite" AcceptsReturn="True" TextWrapping="Wrap"
                                          Text="{Binding SelectedItem.Body, ElementName=MessagesList}"/>
                             </GroupBox>
                         </DockPanel>

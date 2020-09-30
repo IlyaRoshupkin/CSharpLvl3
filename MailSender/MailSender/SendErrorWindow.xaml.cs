@@ -24,6 +24,12 @@ namespace MailSender
             tbDescryption.Text = ex.Message;
         }
 
+        public SendErrorWindow(string error)
+        {
+            InitializeComponent();
+            tbDescryption.Text = error;
+        }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             Close();

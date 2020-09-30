@@ -56,6 +56,13 @@ namespace MailSender
             if (!(RecipientsList.SelectedItem is Recipient recipient)) return;
             if (!(ServersList.SelectedItem is Server server)) return;
             if (!(MessagesList.SelectedItem is Message message)) return;
+            if (String.IsNullOrWhiteSpace(tbLetterBody.Text))
+            {
+                SendErrorWindow sendErrorWindow = new SendErrorWindow("Fill in the letter`s body!");
+                sendErrorWindow.ShowDialog();
+                tiLetters.IsSelected = true;
+                return;
+            }
 
             var send_service = new MailSenderService
             {

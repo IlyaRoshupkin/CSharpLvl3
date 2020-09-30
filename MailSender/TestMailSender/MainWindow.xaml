@@ -1,0 +1,48 @@
+﻿<Window x:Class="TestMailSender.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TestMailSender.ViewModels.Base"
+        xmlns:local="clr-namespace:TestMailSender"
+        xmlns:commands="clr-namespace:TestMailSender.Infrastructure.Commands"
+        mc:Ignorable="d"
+        Topmost="{Binding ElementName=IsWindowTopMost,Path=IsChecked}" 
+        Title="{Binding Title}" Height="450" Width="600">
+    
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <TextBox Text="{Binding Title,UpdateSourceTrigger=PropertyChanged}" 
+                 Name="tbValue" Width="100" VerticalAlignment="Top" Margin="55,26,605,0"/>
+        <Slider Name="slTrans" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="600" Margin="230,26,470,0"
+                Value="{Binding ElementName=Translator,Path=X}"/>
+        <Slider Name="slRot" VerticalAlignment="Top" Width="100" Minimum="-180" Maximum="180" Margin="400,26,300,0"
+                Value="{Binding ElementName=Rotator,Path=Angle}"/>
+        <Ellipse Name="MyEllipse" Stroke="Blue" StrokeThickness="6" Width="70" Fill="Red" Height="40" Margin="210,110,520,284"
+                 RenderTransformOrigin="0.5,0.5">
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="0" x:Name="Translator"/>
+                    <RotateTransform Angle="0" x:Name="Rotator"/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+        </Ellipse>
+        <TextBlock Text="{Binding CurrentTime, 
+            ConverterCulture=ru-RU,StringFormat=HH:mm:ss.ffff}"/>
+        <CheckBox Content="Turn on The Timer" VerticalAlignment="Top"
+                  HorizontalAlignment="Left" Margin="80,0"
+                  IsChecked="{Binding TimerEnabled}"/>
+        <CheckBox Content="Top most" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Margin="220,0"
+                  Name="IsWindowTopMost"/>
+        <Button Content="Close WIndow" VerticalAlignment="Top"
+                HorizontalAlignment="Left" Margin="20,60">
+            <Button.Command>
+                <commands:CloseWindowCommand/>
+            </Button.Command>
+        </Button>
+    </Grid>
+</Window>
