@@ -1,11 +1,11 @@
-﻿<Window x:Class="TestMailSender.MainWindow"
+﻿<Window x:Class="MailSender.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:TestMailSender.ViewModels.Base"
-        xmlns:local="clr-namespace:TestMailSender"
-        xmlns:commands="clr-namespace:TestMailSender.Infrastructure.Commands"
+        xmlns:vm="clr-namespace:MailSender.ViewModels.Base"
+        xmlns:local="clr-namespace:MailSender"
+        xmlns:commands="clr-namespace:MailSender.Infrastructure.Commands"
         mc:Ignorable="d"
         Topmost="{Binding ElementName=IsWindowTopMost,Path=IsChecked}" 
         Title="{Binding Title}" Height="450" Width="600">
@@ -43,6 +43,10 @@
             <Button.Command>
                 <commands:CloseWindowCommand/>
             </Button.Command>
+        </Button>
+        <Button Content="Hello World" VerticalAlignment="Top"
+                HorizontalAlignment="Left" Margin="120,60" 
+                Command="{Binding ShowDialogCommand}">
         </Button>
     </Grid>
 </Window>

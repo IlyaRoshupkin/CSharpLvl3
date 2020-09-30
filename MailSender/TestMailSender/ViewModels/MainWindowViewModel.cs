@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+using System.Windows;
+using System.Windows.Input;
+using MailSender.Infrastructure.Commands;
 
-namespace TestMailSender.ViewModels.Base
+namespace MailSender.ViewModels.Base
 {
     class MainWindowViewModel : ViewModel
     {
@@ -28,6 +31,16 @@ namespace TestMailSender.ViewModels.Base
         }
 
         private readonly Timer _Timer;
+
+        private ICommand _ShowDialogCommand;
+        public ICommand ShowDialogCommand => _ShowDialogCommand
+            ??= new LambdaCommand(OnShowDialogCommandExecuted);
+
+        private void OnShowDialogCommandExecuted(object p)
+        {
+            MessageBox.Show("Hello World");
+        }
+
         public MainWindowViewModel()
         {
             _Timer = new Timer(100);
