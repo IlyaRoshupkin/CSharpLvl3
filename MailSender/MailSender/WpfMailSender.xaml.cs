@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MailSender.Data;
+using MailSender.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MailSender.lib;
 
 namespace MailSender
 {
@@ -27,24 +30,54 @@ namespace MailSender
             InitializeComponent();
         }
 
-        //private void btnSendEmail_Click(object sender, RoutedEventArgs e)
-        //{
-        //    SmtpData.from = tbFrom.Text;
-        //    SmtpData.to = tbTo.Text;
-        //    SmtpData.subject = tbSubject.Text;
-        //    SmtpData.smtpServer = tbSmptServer.Text;
-        //    SmtpData.smtpPort = Convert.ToInt32(tbSmptPort.Text);
-        //    SmtpData.userName = tbUserName.Text;
-        //    SmtpData.password = passwordBox.Password;
-        //    SmtpData.message = tbMessage.Text;
-        //    EmailSendServiceClass essc = new EmailSendServiceClass();
-        //    SendEndWindow sew = new SendEndWindow();
-        //    sew.ShowDialog();
-        //}
+        private void btnSendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            //SmtpData.from = tbFrom.Text;
+            //SmtpData.to = tbTo.Text;
+            //SmtpData.subject = tbSubject.Text;
+            //SmtpData.smtpServer = tbSmptServer.Text;
+            //SmtpData.smtpPort = Convert.ToInt32(tbSmptPort.Text);
+            //SmtpData.userName = tbUserName.Text;
+            //SmtpData.password = passwordBox.Password;
+            //SmtpData.message = tbMessage.Text;
+            //EmailSendServiceClass essc = new EmailSendServiceClass();
+            //SendEndWindow sew = new SendEndWindow();
+            //sew.ShowDialog();
+        }
 
         private void miExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void btnSend_Click(object _sender, RoutedEventArgs e)
+        {
+            if (!(SendersList.SelectedItem is Sender sender)) return;
+            if (!(RecipientsList.SelectedItem is Recipient recipient)) return;
+            if (!(ServersList.SelectedItem is Server server)) return;
+            if (!(MessagesList.SelectedItem is Message message)) return;
+
+            var send_service = new MailSenderService
+            {
+                ServerAddress = server.Address,
+                ServerPort = server.Port,
+                UseSSL = server.UseSSL,
+                Login = server.Login,
+                Password = server.Password
+            };
+
+            try
+            {
+                send_service.SendMessage(sender.Address, recipient.Address,
+                    message.Subject, message.Body);
+            }
+            catch (Exception error)
+            {
+                //MessageBox.Show("Error during the mail`s sending " + error.Message, "Error",
+                //    MessageBoxButton.OK, MessageBoxImage.Error);
+                SendErrorWindow sendErrorWindow = new SendErrorWindow(error);
+                sendErrorWindow.ShowDialog();
+            }
         }
     }
 }
