@@ -8,10 +8,10 @@
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:m="clr-namespace:MailSender.Models"
         xmlns:local="clr-namespace:MailSender"
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="WpfMailSender" Height="750" Width="1200" ResizeMode="NoResize" 
-        WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/Media/messageSender.ico">
-
+        Title="{Binding Title}" Height="750" Width="1200" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Icon="/Media/messageSender.ico">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File" >
@@ -45,15 +45,9 @@
                     <ToolBarTray DockPanel.Dock="Top">
 
                         <ToolBar Header="Servers" Band="0" BandIndex="0">
-                            <ComboBox Name="ServersList" MinWidth="120" MaxWidth="200" 
-                                SelectedIndex="0" Margin="26,0,0,0" 
-                                      ItemsSource="{x:Static data:TestData.Servers}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="m:Server">
-                                        <TextBlock Text="{Binding Address}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                            <ComboBox Name="ServersList" MinWidth="120" MaxWidth="200" Margin="26,0,0,0" 
+                                      ItemsSource="{Binding Servers}" DisplayMemberPath="Address"
+                                      SelectedItem="{Binding SelectedServer}"/>
                             <!--ItemsSource="{x:Static data:TestData.Servers}"
                                       DisplayMemberPath="Address"
                                       SelectedValuePath="Address"-->
@@ -70,19 +64,9 @@
                         </ToolBar>
 
                         <ToolBar Header="Senders" Band="1" BandIndex="0">
-                            <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Senders}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="m:Sender">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" 
-                                                       ToolTip="{Binding Address}"/>
-                                            <!--<TextBlock Text=":"/>
-                                            <TextBlock Text="{Binding Address}" Opacity="0.4"/>-->
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                            <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200"
+                                      ItemsSource="{Binding Senders}" DisplayMemberPath="Name"
+                                      SelectedItem="{Binding SelectedSender}"/>
                             <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
                                     Foreground="Gray"/>
                             <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
@@ -110,9 +94,10 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="List of Recipients">
-                        <DataGrid Name="RecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
+                        <DataGrid Name="RecipientsList" ItemsSource="{Binding Recipients}"
+                                  SelectedItem="{Binding SelectedRecipient}"
                                   AutoGenerateColumns="False" GridLinesVisibility="Vertical"
-                                  AlternatingRowBackground="DarkBlue"
+                                  AlternatingRowBackground="LightBlue"
                                   VerticalGridLinesBrush="OrangeRed">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" MinWidth="30"/>
@@ -126,13 +111,13 @@
                 </DockPanel>
             </TabItem>
             
-            <TabItem Header="Planner">
+            <TabItem Header="Planner" Margin="-2,0,-2,-2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Header="Management">
+                    <GroupBox Grid.Column="0" Header="Management" Background="LightCoral">
                         <StackPanel>
                             <TextBlock Text="Calendar" TextAlignment="Center" FontSize="16" FontWeight="Bold"/>
                             <Calendar/>
@@ -143,7 +128,7 @@
                                         <Setter Property="Background" Value="Aqua"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Name="btnSend" Height="30" Margin="0,3" Click="btnSend_Click">
+                                <Button Name="btnSend" Height="30" Margin="0,3">
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Height="20" Width="20" Fill="Red"/>
                                         <TextBlock Text=" Send" FontSize="14" FontWeight="Bold"/>
@@ -159,13 +144,13 @@
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Tasks">
-                        <ListBox Background="DarkBlue">
+                        <ListBox Background="Wheat">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                 </Style>
                             </ListBox.ItemContainerStyle>
-                            <ListBoxItem Background="Black">
+                            <ListBoxItem Background="LightGreen">
                                 <GroupBox Header="Task">
                                     <StackPanel>
                                         <DockPanel>
@@ -200,7 +185,8 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column ="0" Header="List of Letters">
-                        <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messages}"
+                        <ListBox Name="MessagesList" ItemsSource="{Binding Messages}"
+                                 SelectedItem="{Binding SelectedMessage}"
                                  DisplayMemberPath="Subject" Foreground="AliceBlue">
                             <ListBox.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -217,7 +203,8 @@
                                 <TextBox  Text="{Binding SelectedItem.Subject, ElementName=MessagesList}"/>
                             </GroupBox>
                             <GroupBox Header="Letter`s Body">
-                                <TextBox Name="tbLetterBody" Foreground="AntiqueWhite" AcceptsReturn="True" TextWrapping="Wrap"
+                                <TextBox Name="tbLetterBody" AcceptsReturn="True" TextWrapping="Wrap"
+                                         Foreground="Black"
                                          Text="{Binding SelectedItem.Body, ElementName=MessagesList}"/>
                             </GroupBox>
                         </DockPanel>
