@@ -52,11 +52,14 @@
                                       DisplayMemberPath="Address"
                                       SelectedValuePath="Address"-->
                         <Button ToolTip="Add" fa:Awesome.Content="Regular_PlusSquare" 
-                                    Foreground="Gray"/>
+                                    Foreground="Gray" Command="{Binding CreateNewServerCommand}"
+                               CommandParameter="{Binding SelectedServer}" />
                             <Button ToolTip="Edit" fa:Awesome.Content="Regular_Edit" 
-                                    Foreground="Blue"/>
+                                    Foreground="Blue" Command="{Binding EditNewServerCommand}"
+                                    CommandParameter="{Binding SelectedServer}"/>
                             <Button ToolTip="Remove" fa:Awesome.Content="Regular_TrashAlt" 
-                                    Foreground="Red"/>
+                                    Foreground="Red" Command="{Binding DeleteNewServerCommand}"
+                                    CommandParameter="{Binding SelectedServer}"/>
                         </ToolBar>
 
                         <ToolBar Header="Go to Planner" Band="0" BandIndex="1">
