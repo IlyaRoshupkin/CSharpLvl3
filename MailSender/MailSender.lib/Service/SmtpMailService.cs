@@ -15,7 +15,7 @@ namespace MailSender.lib.Service
             return new SmtpMailSender(Server, Port, SSL, Login, Password);
         }
     }
-    public class SmtpMailSender:IMailSender
+    class SmtpMailSender:IMailSender
     {
         private readonly string _Address;
         private readonly int _Port;
