@@ -95,7 +95,21 @@ namespace MailSender.ViewModels
 
         private void OnCreateNewServerCommandExecuted(object p)
         {
-            // Major action
+            if (!ServerEditDialog.Create(
+                    out var address,
+                    out var port,
+                    out var ssl,
+                    out var login,
+                    out var password))
+                return;
+            var server = new Server
+            {
+                Address = address,
+                Port = port,
+                UseSSL = ssl,
+                Login = login,
+                Password = password
+            };
         }
         #endregion
         #region EditNewServerCommand
@@ -108,9 +122,21 @@ namespace MailSender.ViewModels
 
         private void OnEditNewServerCommandExecuted(object p)
         {
-            var server = p as Server ?? SelectedServer;
-            if (server is null) return;
-            // Major action(look for in the methodbook)
+            if (!(p is Server server)) return;
+            var address = server.Address;
+            var port = server.Port;
+            var ssl = server.UseSSL;
+            var login = server.Login;
+            var password = server.Password;
+            if (!ServerEditDialog.ShowDialog("Edit server",
+            ref address, ref port, ref ssl,
+            ref login, ref password))
+                return;
+            server.Address = address;
+            server.Port = port;
+            server.UseSSL = ssl;
+            server.Login = login;
+            server.Password = password;
         }
         #endregion
 
@@ -127,7 +153,6 @@ namespace MailSender.ViewModels
             if (server is null) return;
             Servers.Remove(server);
             SelectedServer = Servers.FirstOrDefault();
-            // Major action
         }
         #endregion
 
