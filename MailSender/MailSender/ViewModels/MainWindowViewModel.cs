@@ -15,6 +15,8 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         private readonly IMailService _MailService;
+        public StatisticViewModel Statistic { get; } = new StatisticViewModel();
+
         private string _Title = "Test Window";
         public string Title
         {
@@ -154,6 +156,8 @@ namespace MailSender.ViewModels
             var mail_sender = _MailService.GetSender(server.Address, server.Port,
                 server.UseSSL, server.Login, server.Password);
             mail_sender.Send(sender.Address, recipient.Address, message.Subject, message.Body);
+
+            Statistic.MessageSended();
             // Major action
         }
         #endregion

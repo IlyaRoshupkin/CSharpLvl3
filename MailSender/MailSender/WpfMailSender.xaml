@@ -24,7 +24,9 @@
                 </MenuItem>
                 <MenuItem Header="Service"  >
                     <MenuItem Header="Settings"  />
-                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Mail Sending" Command="{Binding SendMailCommand}"/>
+            </MenuItem>
                 <MenuItem Header="Help">
                     <MenuItem Header="About the Programm"/>
                 </MenuItem>
@@ -131,7 +133,7 @@
                                         <Setter Property="Background" Value="Aqua"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Name="btnSend" Height="30" Margin="0,3">
+                                <Button Name="btnSend" Height="30" Margin="0,3" Command="{Binding SendMailCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Height="20" Width="20" Fill="Red"/>
                                         <TextBlock Text=" Send" FontSize="14" FontWeight="Bold"/>
@@ -241,7 +243,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Number of sended letters"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="5"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Statistic.SendMessageCount}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Number of senders in a base"/>
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="5"/>
