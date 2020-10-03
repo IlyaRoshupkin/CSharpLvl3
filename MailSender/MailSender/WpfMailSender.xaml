@@ -7,6 +7,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:m="clr-namespace:MailSender.Models"
+        xmlns:v="clr-namespace:MailSender.Views"
         xmlns:local="clr-namespace:MailSender"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
@@ -20,7 +21,7 @@
                     <MenuItem Header="Close"/>
                     <MenuItem Header="Save"/>
                     <Separator/>
-                    <MenuItem x:Name="miExit" Header="Exit" Click="miExit_Click"/>
+                    <MenuItem x:Name="miExit" Header="Exit"/>
                 </MenuItem>
                 <MenuItem Header="Service"  >
                     <MenuItem Header="Settings"  />
@@ -98,21 +99,9 @@
                                     Foreground="Red"/>
                         </ToolBar>
                     </ToolBarTray>
-                    <GroupBox Header="List of Recipients">
-                        <DataGrid Name="RecipientsList" ItemsSource="{Binding Recipients}"
-                                  SelectedItem="{Binding SelectedRecipient}"
-                                  AutoGenerateColumns="False" GridLinesVisibility="Vertical"
-                                  AlternatingRowBackground="LightBlue"
-                                  VerticalGridLinesBrush="OrangeRed">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" MinWidth="30"/>
-                                <DataGridTextColumn Header="Name" Width="*" 
-                                                    Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Adress" MinWidth="160"
-                                                    Binding="{Binding Address}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </GroupBox>
+                    <Grid>
+                        <v:RecipientsView/>
+                    </Grid>
                 </DockPanel>
             </TabItem>
             
