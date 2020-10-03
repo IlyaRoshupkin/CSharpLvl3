@@ -1,13 +1,11 @@
 ﻿using MailSender.Data;
 using MailSender.Infrastructure.Commands;
 using MailSender.lib.Interfaces;
-using MailSender.Models;
+using MailSender.lib.Models;
 using MailSender.ViewModels.Base;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 
 namespace MailSender.ViewModels
@@ -100,7 +98,8 @@ namespace MailSender.ViewModels
                     out var port,
                     out var ssl,
                     out var login,
-                    out var password))
+                    out var password,
+                    out var description))
                 return;
             var server = new Server
             {
@@ -108,7 +107,8 @@ namespace MailSender.ViewModels
                 Port = port,
                 UseSSL = ssl,
                 Login = login,
-                Password = password
+                Password = password,
+                Description = description
             };
         }
         #endregion
@@ -128,15 +128,18 @@ namespace MailSender.ViewModels
             var ssl = server.UseSSL;
             var login = server.Login;
             var password = server.Password;
+            var description = server.Description;
             if (!ServerEditDialog.ShowDialog("Edit server",
             ref address, ref port, ref ssl,
-            ref login, ref password))
+            ref login, ref password,
+            ref description))
                 return;
             server.Address = address;
             server.Port = port;
             server.UseSSL = ssl;
             server.Login = login;
             server.Password = password;
+            server.Description = description;
         }
         #endregion
 

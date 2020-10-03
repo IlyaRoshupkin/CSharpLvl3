@@ -5,14 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:m="clr-namespace:MailSender.Models"
         xmlns:v="clr-namespace:MailSender.Views"
-        xmlns:local="clr-namespace:MailSender"
-        DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
+        DataContext="{Binding Source={StaticResource Locator},Path=MainWindowViewModel}"
         Title="{Binding Title}" Height="750" Width="1200" ResizeMode="NoResize" 
-        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Icon="/Media/messageSender.ico">
+        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" 
+        Icon="/Media/messageSender.ico">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File" >
@@ -111,9 +109,10 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Header="Management" Background="LightCoral">
+                    <GroupBox Grid.Column="0" Background="LightCoral">
                         <StackPanel>
-                            <TextBlock Text="Calendar" TextAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="Calendar" TextAlignment="Center" Margin="0,5" 
+                                       FontSize="16" FontWeight="Bold"/>
                             <Calendar/>
                             <StackPanel Margin="5,7">
                                 <StackPanel.Resources>

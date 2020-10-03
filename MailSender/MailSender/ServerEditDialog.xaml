@@ -53,9 +53,9 @@
                 <PasswordBox Name="Password"/>
             </GroupBox>
         </UniformGrid>
-        <!--<GroupBox Header="Описание">
-            <TextBox Name="ServerDescription"/>
-        </GroupBox>-->
+        <GroupBox Header="Описание">
+            <TextBox Name="Description"/>
+        </GroupBox>
     </DockPanel>
 </Window>
 

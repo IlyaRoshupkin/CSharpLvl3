@@ -34,7 +34,7 @@ namespace MailSender
         public static bool ShowDialog(
         string Title, 
         ref string Address, ref int Port, ref bool UseSSL,
-        ref string Login, ref string Password)
+        ref string Login, ref string Password, ref string Description)
         {
             // Создаём окно и инициализируем его свойства
             var window = new ServerEditDialog
@@ -45,7 +45,9 @@ namespace MailSender
                 ServerSSL = { IsChecked = UseSSL },
                 Login = { Text = Login },
                 Password = { Password = Password },
-            
+                Description = { Text = Description },
+
+
                 Owner = Application .Current.Windows.
                 Cast<Window>().FirstOrDefault(window => window.IsActive)
             };
@@ -62,22 +64,23 @@ namespace MailSender
         out int Port,
         out bool UseSSL,
         out string Login,
-        out string Password)
+        out string Password,
+        out string Description)
         {
      
             //Name = null;
             Address = null;
             Port = 25;
             UseSSL = false;
-            //Description = null;
             Login = null;
             Password = null;
+            Description = null;
             return ShowDialog("Создать сервер",
             //ref Name,
             ref Address,
             ref Port,
             ref UseSSL,
-            //ref Description,
+            ref Description,
             ref Login,
  ref Password);
         }
