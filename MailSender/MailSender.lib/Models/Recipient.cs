@@ -6,29 +6,29 @@ using System.Text;
 
 namespace MailSender.lib.Models
 {
-    public class Recipient : Person,IDataErrorInfo
+    public class Recipient : Person//,IDataErrorInfo
     {
-        string IDataErrorInfo.this[string PropertyName]
-        {
-            get
-            {
-                switch (PropertyName)
-                {
-                    default: return null;
-                    case nameof(Name):
-                        var name = Name;
-                        if (name is null) return
-                                 "Name can`t be an empty line.";
-                        if (name.Length <= 2) return
-                                 "Name can`t be shorter than two signs.";
-                        if (name.Length > 20) return
-                                 "Name can`t be longer than twenty signs.";
-                        return null;
-                    case nameof(Address):
-                        return null;
-                }
-            }
-        }
+        //string IDataErrorInfo.this[string PropertyName]
+        //{
+        //    get
+        //    {
+        //        switch (PropertyName)
+        //        {
+        //            default: return null;
+        //            case nameof(Name):
+        //                var name = Name;
+        //                if (name is null) return
+        //                         "Name can`t be an empty line.";
+        //                if (name.Length <= 2) return
+        //                         "Name can`t be shorter than two signs.";
+        //                if (name.Length > 20) return
+        //                         "Name can`t be longer than twenty signs.";
+        //                return null;
+        //            case nameof(Address):
+        //                return null;
+        //        }
+        //    }
+        //}
 
         //public override string Name
         //{
@@ -45,6 +45,7 @@ namespace MailSender.lib.Models
         //    }
         //}
 
-        string IDataErrorInfo.Error { get; }="";
+        //    string IDataErrorInfo.Error { get; }="";
+        //}
     }
 }
