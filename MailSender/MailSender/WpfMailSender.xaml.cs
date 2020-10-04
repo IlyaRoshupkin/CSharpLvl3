@@ -11,5 +11,15 @@ namespace MailSender
         {
             InitializeComponent();
         }
+
+        private void btnGoToPlan_Click(object sender, RoutedEventArgs e)
+        {
+            planner.IsSelected = true;
+        }
+
+        private void miExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

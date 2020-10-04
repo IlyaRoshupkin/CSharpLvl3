@@ -19,7 +19,7 @@
                     <MenuItem Header="Close"/>
                     <MenuItem Header="Save"/>
                     <Separator/>
-                    <MenuItem x:Name="miExit" Header="Exit"/>
+                    <MenuItem x:Name="miExit" Header="Exit" Click="miExit_Click" />
                 </MenuItem>
                 <MenuItem Header="Service"  >
                     <MenuItem Header="Settings"  />
@@ -64,7 +64,8 @@
                         </ToolBar>
 
                         <ToolBar Header="Go to Planner" Band="0" BandIndex="1">
-                            <Button fa:Awesome.Content="Regular_Clock" Foreground="DarkGreen" ToolTip="Go to"/>
+                            <Button x:Name="btnGoToPlan" fa:Awesome.Content="Regular_Clock" Foreground="DarkGreen" ToolTip="Go to" Click="btnGoToPlan_Click"
+                                    />
                         </ToolBar>
 
                         <ToolBar Header="Senders" Band="1" BandIndex="0">
@@ -108,7 +109,7 @@
                 </DockPanel>
             </TabItem>
             
-            <TabItem Header="Planner" Margin="-2,0,-2,-2">
+            <TabItem Header="Planner" Margin="-2,0,-2,-2" x:Name="planner">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
