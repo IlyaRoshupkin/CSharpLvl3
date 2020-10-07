@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Threading;
 
 namespace MailSender.lib.Service
 {
@@ -63,6 +64,17 @@ namespace MailSender.lib.Service
                     }
                 }
             }
+        }
+
+        public void Send(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
+        {
+            foreach (var recipient_address in RecipientAddress)
+                Send(SenderAddress, recipient_address, Subject, Body);
+        }
+        public void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
+        {
+            foreach (var recipient_address in RecipientAddress)
+                ThreadPool.QueueUserWorkItem(o => Send(SenderAddress, recipient_address, Subject, Body));
         }
     }
 }

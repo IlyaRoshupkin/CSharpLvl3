@@ -39,6 +39,16 @@ namespace MailSender.lib.Service
                 Debug.WriteLine($"Message from {SenderAddress} to {RecipientAddress}:" +
                     $"\r\n{Subject}\r\n{Body}");
             }
+
+            public void Send(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
+            {
+                foreach (var recipient_address in RecipientAddress)
+                    Send(SenderAddress, recipient_address, Subject, Body);
+            }
+            public void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
+            {
+                Send(SenderAddress, RecipientAddress, Subject, Body);
+            }
         }
     }
 }
