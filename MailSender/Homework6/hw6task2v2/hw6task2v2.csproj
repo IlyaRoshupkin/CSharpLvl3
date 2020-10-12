@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\expressions.txt" />
+    <None Remove="Data\result.dat" />
+    <None Remove="result.dat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="result.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Data\expressions.txt" />
+    <Resource Include="Data\result.dat" />
+  </ItemGroup>
+
+</Project>
