@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MailSender.lib.Interfaces
 {
@@ -16,8 +18,19 @@ namespace MailSender.lib.Interfaces
         void Send(string SenderAddress, IEnumerable<string> RecipientAddress,
             string Subject, string Body);
 
-        void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress,
-            string Subject, string Body);
+        Task SendParallelAsync(string SenderAddress, IEnumerable<string> RecipientAddress,
+            string Subject, string Body,CancellationToken Cancel = default);
+
+
+        Task SendAsync(string SenderAddress, string Subject, string Body, 
+            string RecipientAddress,
+            CancellationToken Cancel = default);
+
+        Task SendAsync(string SenderAddress, IEnumerable<string> RecipientAddress,
+            string Subject, string Body,
+            IProgress<(string Recipient,double Percent)> Progress = null, 
+            CancellationToken Cancel = default);
+
     }
 
 }
