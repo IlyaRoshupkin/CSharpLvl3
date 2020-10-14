@@ -11,8 +11,7 @@ namespace MailSender.Infrastructure.Commands
     {
         protected override void Execute(object p)
         {
-            var window = p as Window;
-            if (window is null)
+            if (!(p is Window window))
                 window = Application.Current.Windows.
                     Cast<Window>().FirstOrDefault(w => w.IsFocused);
             if (window is null)

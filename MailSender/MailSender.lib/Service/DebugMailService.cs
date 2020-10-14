@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MailSender.lib.Service
 {
@@ -45,9 +47,25 @@ namespace MailSender.lib.Service
                 foreach (var recipient_address in RecipientAddress)
                     Send(SenderAddress, recipient_address, Subject, Body);
             }
+
+            public Task SendAsync(string SenderAddress, string Subject, string Body, string RecipientAddress, CancellationToken Cancel = default)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Task SendAsync(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body, IProgress<(string Recipient, double Percent)> Progress = null, CancellationToken Cancel = default)
+            {
+                throw new NotImplementedException();
+            }
+
             public void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
             {
                 Send(SenderAddress, RecipientAddress, Subject, Body);
+            }
+
+            public Task SendParallelAsync(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body, CancellationToken Cancel = default)
+            {
+                throw new NotImplementedException();
             }
         }
     }

@@ -22,8 +22,12 @@ namespace MailSender.Views
         {
             InitializeComponent();
         }
-        private void OnDataValidationError(object? Sender, ValidationErrorEventArgs E)
+        private void OnDataValidationError(object Sender, ValidationErrorEventArgs E)
         {
+            if (Sender is null)
+            {
+                throw new ArgumentNullException(nameof(Sender));
+            }
             //var control = (Control)E.OriginalSource;
             //if (E.Action == ValidationErrorEventAction.Added)
             //    control.ToolTip = E.Error.ErrorContent.ToString();
