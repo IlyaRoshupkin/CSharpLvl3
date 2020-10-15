@@ -1,6 +1,8 @@
-﻿using MailSender.lib.Interfaces;
+﻿using MailSender.Data;
+using MailSender.lib.Interfaces;
 using MailSender.lib.Service;
 using MailSender.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -45,9 +47,16 @@ namespace MailSender
             services.AddTransient<IMailService, SmtpMailService>();
 
 #endif
+            services.AddSingleton<IEncryptorService, Rfc2898Encryptor>();
+            services.AddDbContext<MailSenderDB>(opt => opt.UseSqlServer(host.Configuration
+                .GetConnectionString("Default")));
+            services.AddTransient<MailSenderDbInitializer>();
             //services.AddScoped<>();
-
-
+        }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Services.GetRequiredService<MailSenderDbInitializer>().Initialize();
+            base.OnStartup(e);
         }
     }
 }

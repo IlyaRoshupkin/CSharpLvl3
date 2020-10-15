@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
     <None Remove="Media\add.png" />
     <None Remove="Media\clock.png" />
     <None Remove="Media\edit.png" />
@@ -38,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Media\add.png" />
     <Resource Include="Media\clock.png" />
     <Resource Include="Media\edit.png" />
