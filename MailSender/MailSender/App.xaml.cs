@@ -1,5 +1,8 @@
 ﻿using MailSender.Data;
+using MailSender.Data.Stores.InDB;
+using MailSender.Data.Stores.InMemory;
 using MailSender.lib.Interfaces;
+using MailSender.lib.Models;
 using MailSender.lib.Service;
 using MailSender.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -51,12 +54,26 @@ namespace MailSender
             services.AddDbContext<MailSenderDB>(opt => opt.UseSqlServer(host.Configuration
                 .GetConnectionString("Default")));
             services.AddTransient<MailSenderDbInitializer>();
+
+            services.AddSingleton<IStore<Recipient>, RecipientsStoreInMemory>();
+            //services.AddSingleton<IStore<Recipient>, RecipientsStoreInDB>();
+
             //services.AddScoped<>();
         }
         protected override void OnStartup(StartupEventArgs e)
         {
             Services.GetRequiredService<MailSenderDbInitializer>().Initialize();
             base.OnStartup(e);
+
+            //using (var db = Services.GetRequiredService<MailSenderDB>())
+            //{
+            //    var to_remove = db.SchedulerTasks.Where(task => task.Time < DateTime.Now);
+            //    if (to_remove.Any())
+            //    {
+            //        db.SchedulerTasks.RemoveRange(to_remove);
+            //        db.SaveChanges();
+            //    }
+            //}
         }
     }
 }
