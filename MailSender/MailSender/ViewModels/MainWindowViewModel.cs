@@ -14,6 +14,11 @@ namespace MailSender.ViewModels
     {
         private readonly IMailService _MailService;
         private readonly IStore<Recipient> _RecipientsStore;
+        private readonly IStore<Sender> _SendersStore;
+        private readonly IStore<Message> _MessagesStore;
+        private readonly IStore<Server> _ServersStore;
+        private readonly IStore<SchedulerTask> _SchedulerTasksStore;
+        private readonly IMailSchedulerService _MailSchedulerService;
 
         public StatisticViewModel Statistic { get; } = new StatisticViewModel();
 
@@ -193,14 +198,36 @@ namespace MailSender.ViewModels
         #endregion
         #endregion
 
-        public MainWindowViewModel(IMailService MailService, IStore<Recipient> RecipientsStore)
+        private ICommand _LoadDataCommand;
+
+        public ICommand LoadDataCommand => _LoadDataCommand
+            ?? new LambdaCommand(OnLoadDataCommandExecuted, CanLoadDataCommandExecuted);
+
+        private bool CanLoadDataCommandExecuted(object p) => true;
+
+        private void OnLoadDataCommandExecuted(object p)
+        {
+            Servers = new ObservableCollection<Server>(_ServersStore.GetAll());
+            Senders = new ObservableCollection<Sender>(_SendersStore.GetAll());
+            Recipients = new ObservableCollection<Recipient>(_RecipientsStore.GetAll());
+            Messages = new ObservableCollection<Message>(_MessagesStore.GetAll());
+        }
+
+        public MainWindowViewModel(IMailService MailService,
+            IStore<Recipient> RecipientsStore,
+            IStore<Sender> SendersStore,
+            IStore<Message> MessagesStore,
+            IStore<Server> ServersStore,
+            IStore<SchedulerTask> SchedulerTasksStore,
+            IMailSchedulerService MailSchedulerService)
         {
             _MailService = MailService;
             _RecipientsStore = RecipientsStore;
-            Servers = new ObservableCollection<Server>(TestData.Servers);
-            Senders = new ObservableCollection<Sender>(TestData.Senders);
-            Recipients = new ObservableCollection<Recipient>(RecipientsStore.GetAll());
-            Messages = new ObservableCollection<Message>(TestData.Messages);
+            _SendersStore = SendersStore;
+            _MessagesStore = MessagesStore;
+            _ServersStore = ServersStore;
+            _SchedulerTasksStore = SchedulerTasksStore;
+            _MailSchedulerService = MailSchedulerService;
         }
     }
 }

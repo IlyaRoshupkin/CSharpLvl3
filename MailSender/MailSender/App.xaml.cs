@@ -55,8 +55,14 @@ namespace MailSender
                 .GetConnectionString("Default")));
             services.AddTransient<MailSenderDbInitializer>();
 
-            services.AddSingleton<IStore<Recipient>, RecipientsStoreInMemory>();
-            //services.AddSingleton<IStore<Recipient>, RecipientsStoreInDB>();
+            services.AddSingleton<IStore<Recipient>, RecipientsStoreInDB>();
+            services.AddSingleton<IStore<Sender>, SendersStoreInDB>();
+            services.AddSingleton<IStore<Message>, MessagesStoreInDB>();
+            services.AddSingleton<IStore<Server>, ServersStoreInDB>();
+            services.AddSingleton<IStore<SchedulerTask>, SchedulerTasksStoreInDB>();
+            //services.AddSingleton<IStore<Recipient>, RecipientsStoreInMemory>();
+
+            services.AddSingleton<IMailSchedulerService, TaskMailSchedulerService>();
 
             //services.AddScoped<>();
         }
