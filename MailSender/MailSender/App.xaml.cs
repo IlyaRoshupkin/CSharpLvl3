@@ -31,7 +31,7 @@ namespace MailSender
                 Environment.GetCommandLineArgs())
             .ConfigureAppConfiguration(cfg=>cfg
             //.AddXmlFile("appsettings.xml",true,true))
-            .AddJsonFile("appconfig.json", true, true))
+            .AddJsonFile("appsettings.json", true, true))
         .ConfigureLogging(log=>log
         .AddConsole()
         .AddDebug())
